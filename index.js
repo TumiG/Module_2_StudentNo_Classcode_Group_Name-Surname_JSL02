@@ -13,39 +13,74 @@ const displayWorkoutRoutine = () => {
 };
 
 document.querySelector('#submitWorkout').addEventListener('click', displayWorkoutRoutine);
+const formElement = document.getElementById('workout-form'); 
+const firstInput = document.querySelector('input'); 
+const allInputs = document.querySelector('input');
 
-// ⚠️⚠️⚠️ Lesson 3: Creating and Removing Elements ⚠️⚠️⚠️
-// Function to add new fitness goals and remove completed ones
-// NOW LET'S DEBUG TO PREVENT DUPLICATE GOALS FROM BEING SUBMITTED 🚀
+
 
 const addNewGoal = () => {
+
+
     const goalInput = document.querySelector('#goalInput').value;
     const goalList = document.querySelector('#goalList');
     
-    // ⚠️ Hint 1: Check for duplicates
-    // Use 'goalList' to get all existing goals and check if 'goalInput' matches any of them.
-    
-    // ⚠️ Hint 2: Prevent duplicates
-    // If a duplicate is found, display an alert to the user and don't add the goal to the list.
-    // If it's not a duplicate, proceed with adding it as a new goal.
-    
-    // ⚠️ Hint 3: Code structure
-    // You might want to wrap the duplicate-checking logic in an 'if' statement.
-    
-    // ⚠️ Hint 4: Event listener
-    // The event listener that removes goals when clicked is not related to this issue.
-    // Focus on preventing duplicates for now.
     
     const newGoal = document.createElement('li');
     newGoal.textContent = goalInput;
-    goalList.appendChild(newGoal);
-};
+    newGoal.classList.add('goal-item');
 
-// Add event listener to the goal submit button
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.addEventListener('click', () => {
+        goalList.removeChild(newGoal);
+        removeDuplicates();
+    });
+
+    newGoal.appendChild(removeButton);
+    goalList.appendChild(newGoal);
+
+    document.querySelector('#goalInput').value = '';
+};
+    
+const removeDuplicates = () => {
+    const items = document.querySelectorAll('goal-item');
+    const seen = new Set();
+
+    items.forEach(item => {
+        const textContent = item.textContent.trim();
+        if (seen.has(textContent)){
+            item.remove();
+        } else {
+            seen.add(textContent);
+        }
+    })
+}
+
+document.addEventListener('DOMContentLoaded' , () => {
+    removeDuplicates();
+});
+
+document.querySelector('#addGoalButton').addEventListener('click' , addNewGoal);
+
+document.getElementById('meal-plan-form').addEventListener('submit' , function(event) {
+    event.preventDefault();
+
+});
+
+if (document.getElementById ('name'). value.trim() === '') {
+    alert('Please enter your name'); 
+}
+
+
 document.querySelector('#submitGoal').addEventListener('click', addNewGoal);
+const newGoal = document.createElement('li');
+newGoal.textContent = 'Run 10km';
+const goalList = document.querySelector('#fitness-goals');
+goalList.appendChild(newGoal);
 
 ///
-let waterIntake = 0;
+let waterIntake = 2;
 const updateWaterIntake = (change) => {
     waterIntake += change;
     document.querySelector('#waterIntakeDisplay').textContent = `${waterIntake} glasses 💦`;
