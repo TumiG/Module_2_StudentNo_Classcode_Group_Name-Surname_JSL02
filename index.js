@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded' , () => {
     removeDuplicates();
 });
 
-document.querySelector('#addGoalButton').addEventListener('click' , addNewGoal);
+document.querySelector('#addGoalButton').addEventListener('click', addNewGoal);
 
 document.getElementById('meal-plan-form').addEventListener('submit' , function(event) {
     event.preventDefault();
